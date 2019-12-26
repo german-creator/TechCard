@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/design_menu_item_ingredient"
+        android:icon="@drawable/ic_list_black_24dp"
+        android:title="Ингридиенты"></item>
+    <item
+        android:id="@+id/design_menu_item_techcart"
+        android:icon="@drawable/ic_tech_cart_24dp"
+        android:title="Технологические карты"></item>
+    <item
+        android:id="@+id/design_menu_item_history"
+        android:icon="@drawable/ic_history_black_24dp"
+        android:title="История"></item>
+
+</menu>
