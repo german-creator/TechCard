@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Spinner
+        android:id="@+id/Dialog_Create_TechCart_Spinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"></Spinner>
+
+    <ListView
+        android:id="@+id/Dialog_Create_TechCart_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:divider="@android:color/transparent"></ListView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/Dialog_Create_TechCart_Button_Del"
+            style="@style/Button.Style"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorAccent"
+            android:text="Отмена"
+            app:cornerRadius="100dp"
+
+            ></Button>
+
+        <FrameLayout
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></FrameLayout>
+
+        <Button
+            android:id="@+id/Dialog_Create_TechCart_Button_Save"
+            style="@style/Button.Style"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:text="Сохранить"
+            app:cornerRadius="100dp"></Button>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/Dialog_Create_TechCart_Del"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/background"
+        android:text="Удалить техкарту"
+        android:textColor="@color/text_black"></TextView>
+
+
+</LinearLayout>

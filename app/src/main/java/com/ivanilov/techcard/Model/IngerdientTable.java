@@ -1,4 +1,4 @@
-package com.ivanilov.techcard.Presenter;
+package com.ivanilov.techcard.Model;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.ivanilov.techcard.Model.Ingredient;
+import com.ivanilov.techcard.Presenter.Entity.Ingredient;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

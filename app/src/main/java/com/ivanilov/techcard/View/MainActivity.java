@@ -5,23 +5,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.*;
+import androidx.room.Room;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.ivanilov.techcard.Model.IngerdientTable;
+import com.ivanilov.techcard.Model.TechCartTable;
 import com.ivanilov.techcard.R;
+import com.ivanilov.techcard.View.Fragments.HistoryFragment;
+import com.ivanilov.techcard.View.Fragments.IngredientsFragment;
+import com.ivanilov.techcard.View.Fragments.TechCartFragment;
 
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener, IngredientsFragment.OnFragmentInteractionListener, HistoryFragment.OnFragmentInteractionListener, TechCartFragment.OnFragmentInteractionListener {
 
     NavigationView navigationView;
-    DrawerLayout drawerLayoutl;
+    DrawerLayout drawerLayout;
     FragmentManager fragmentManager = getSupportFragmentManager();
     Toolbar toolbar;
+    IngerdientTable db;
+    TechCartTable techCartTable;
 
 
     @Override
@@ -35,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements
 
         navigationView = findViewById(R.id.navigation_view);
 
-        drawerLayoutl = findViewById(R.id.drawer);
+        drawerLayout = findViewById(R.id.drawer);
 
 
         if (navigationView != null) {
@@ -48,30 +55,15 @@ public class MainActivity extends AppCompatActivity implements
 
         IngredientsFragment ingredientsFragment = new IngredientsFragment();
 
-//            if (fragmentTransaction.isEmpty()) {
         fragmentTransaction.add(R.id.container, ingredientsFragment);
         fragmentTransaction.commit();
 
+        db = Room.databaseBuilder(getApplicationContext(),
+                IngerdientTable.class, "ingerdient_database").allowMainThreadQueries().build();
 
-//        IngerdientTable db = Room.databaseBuilder(getApplicationContext(),
-//                IngerdientTable.class, "database-ingredient").allowMainThreadQueries().build();
-//
-//
-//        db.ingerdientDAO().insertAll(new Ingredient("Молоко", "Литры", 20.00));
-//        List<Ingredient> everyone = db.ingerdientDAO().getAllIngredient();
+        techCartTable = Room.databaseBuilder(getApplicationContext(),
+                TechCartTable.class, "techcart_database").fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
-
-//        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-//                AppDatabase.class, "database-name").allowMainThreadQueries().build();
-//
-//
-//        db.testUserDao().insertAll(new TestRoomUser("2343", "Soffia"));
-//        List<TestRoomUser> everyone = db.testUserDao().getAllPeople();
-
-//        TextView textView = findViewById(R.id.testTextView);
-//
-//
-//        textView.setText(everyone.get(0).getName());
 
     }
 
@@ -80,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                drawerLayoutl.openDrawer(Gravity.LEFT);
+                drawerLayout.openDrawer(Gravity.LEFT);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -122,15 +114,22 @@ public class MainActivity extends AppCompatActivity implements
             toolbar.setTitle("История");
 
 
-
         }
 
-        drawerLayoutl.closeDrawer(Gravity.LEFT);
+        drawerLayout.closeDrawer(Gravity.LEFT);
         return false;
-}
+    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    public IngerdientTable getDbIngerdient() {
+        return db;
+    }
+
+    public TechCartTable getTechCartTable() {
+        return techCartTable;
     }
 }
