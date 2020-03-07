@@ -15,10 +15,10 @@ public class History {
     String ingredient;
     boolean type;
     double amount;
-    Calendar date;
+    Long date;
     String reason;
 
-    public History(int id, String ingredient, boolean type, double amount, Calendar date, String reason) {
+    public History(int id, String ingredient, boolean type, double amount, Long date, String reason) {
         this.id = id;
         this.ingredient = ingredient;
         this.type = type;
@@ -59,11 +59,11 @@ public class History {
         this.amount = amount;
     }
 
-    public Calendar getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 

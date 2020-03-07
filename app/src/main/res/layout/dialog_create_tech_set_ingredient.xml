@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <Spinner
-        android:id="@+id/Dialog_Create_TechCart_Spinner"
-        android:layout_width="match_parent"
+        android:id="@+id/Dialog_Create_Set_Name"
+        android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="5dp"></Spinner>
+        android:layout_marginTop="20dp"></Spinner>
 
-
-    <ListView
-        android:id="@+id/Dialog_Create_TechCart_ListView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="380dp"
-        android:layout_gravity="center"
-        android:divider="@android:color/transparent"
-        ></ListView>
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/Dialog_Create_Set_Amount"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:gravity="center"></EditText>
+
+        <TextView
+            android:id="@+id/Dialog_Create_Set_Units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="кг"></TextView>
+
+
+    </LinearLayout>
 
 
     <LinearLayout
@@ -31,18 +42,19 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="3">
 
 
         <Button
-            android:id="@+id/Dialog_Create_TechCart_Button_Del"
+            android:id="@+id/Dialog_Create_Set_Button_Del"
             style="@style/Button.Style"
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:layout_gravity="left"
             android:layout_weight="1"
             android:backgroundTint="@color/colorAccent"
-            android:text="Отмена"
+            android:text="Удалить"
             app:cornerRadius="100dp"
 
             ></Button>
@@ -53,26 +65,18 @@
             android:layout_weight="1"></FrameLayout>
 
         <Button
-            android:id="@+id/Dialog_Create_TechCart_Button_Save"
+            android:id="@+id/Dialog_Create_Set_Button_Save"
             style="@style/Button.Style"
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:layout_gravity="right"
             android:layout_weight="1"
             android:text="Сохранить"
-            app:cornerRadius="100dp"></Button>
+            app:cornerRadius="100dp"
+
+            ></Button>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/Dialog_Create_TechCart_Del"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/background"
-        android:text="Удалить техкарту"
-        android:textColor="@color/text_black"></TextView>
 
 
 </LinearLayout>

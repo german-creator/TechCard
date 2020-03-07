@@ -3,17 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="78dp"
     android:orientation="horizontal"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:weightSum="20">
+    android:paddingLeft="5dp"
+    android:weightSum="24">
 
     <TextView
         android:id="@+id/item_ingredient_name"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="12"
+        android:layout_weight="15"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
+        android:text="TextView"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/item_ingredient_amount"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="7"
+        android:gravity="center_vertical|right"
         android:text="TextView"
         android:textSize="20sp" />
 
@@ -22,23 +30,11 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
+        android:gravity="center_vertical|left"
+        android:paddingTop="2dp"
+        android:paddingLeft="4dp"
         android:text="TextView"
-        android:textSize="20sp" />
-
-
-    <TextView
-        android:id="@+id/item_ingredient_amount"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="6"
-        android:gravity="center_vertical|right"
-        android:text="TextView"
-        android:paddingRight="10dp"
-        android:textSize="20sp" />
-
-
+        android:textSize="16sp" />
 
 
 </LinearLayout>

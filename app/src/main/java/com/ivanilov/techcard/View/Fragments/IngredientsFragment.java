@@ -2,7 +2,9 @@ package com.ivanilov.techcard.View.Fragments;
 
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +21,11 @@ import com.ivanilov.techcard.Model.IngerdientTable;
 import com.ivanilov.techcard.Model.TechCartTable;
 import com.ivanilov.techcard.R;
 import com.ivanilov.techcard.View.Dialogs.DialogConfirm;
-import com.ivanilov.techcard.View.Dialogs.DialogCraateIngredient;
+import com.ivanilov.techcard.View.Dialogs.DialogCreateIngredient;
 import com.ivanilov.techcard.View.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 public class IngredientsFragment extends Fragment {
@@ -63,8 +64,8 @@ public class IngredientsFragment extends Fragment {
                 Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.nav_default_enter_anim);
                 imageButton.startAnimation(animation);
 
-                DialogCraateIngredient dialogCraateIngredient = new DialogCraateIngredient();
-                dialogCraateIngredient.show(getFragmentManager(), "Тэг?");
+                DialogCreateIngredient dialogCreateIngredient = new DialogCreateIngredient();
+                dialogCreateIngredient.show(getFragmentManager(), "Тэг?");
 
             }
         });
@@ -99,10 +100,16 @@ public class IngredientsFragment extends Fragment {
 
     }
 
-    public void deletIngredient(Ingredient ingredient) {
+    public void deleteIngredient(Ingredient ingredient) {
         ArrayList<String> techCartListIngredient = checkIngredientFree(ingredient);
         if (techCartListIngredient.size() == 0) {
-            trueDeletIngredient(ingredient);
+            ingerdientTable = ((MainActivity) getActivity()).getDbIngerdient();
+            ingerdientTable.ingerdientDAO().delete(ingredient);
+
+            dissmisAllDialog();
+            updateAdapter();
+
+
         } else {
 
             DialogConfirm dialogConfirm = new DialogConfirm();
@@ -119,12 +126,15 @@ public class IngredientsFragment extends Fragment {
 
     }
 
+
     public ArrayList<String> checkIngredientFree(Ingredient ingredient) {
         String nameIngredient = ingredient.getName();
         TechCartTable techCartTable = ((MainActivity) getActivity()).getTechCartTable();
         techCartList = techCartTable.techCartDAO().getAllTechCart();
         ArrayList<String> techCartListIngredient = new ArrayList<>();
+
         for (TechCart i : techCartList) {
+            if (i.getIngredients()==null) continue;
             boolean flag = false;
             for (String s : i.getIngredients()) {
                 if (s.equals(nameIngredient)) {
@@ -133,33 +143,27 @@ public class IngredientsFragment extends Fragment {
             }
             if (flag) techCartListIngredient.add(i.getName());
 
-
         }
         return techCartListIngredient;
 
     }
 
-    public void trueDeletIngredient(Ingredient ingredient) {
-        ingerdientTable = ((MainActivity) getActivity()).getDbIngerdient();
-        TechCartTable techCartTable = ((MainActivity) getActivity()).getTechCartTable();
-        
-        ArrayList<String> ingredients;
 
-        for (TechCart i: techCartList){
-            ingredients = i.getIngredients();
-            for (String j: ingredients){
-                if (j.equals(ingredient.getName())){
-                    ingredients.remove(j);
-                    i.setIngredients(ingredients);
-                    techCartTable.techCartDAO().insertAll(i);
-                    break;
-                }
+    public void dissmisAllDialog () {
+
+        FragmentManager fragmentManager = getFragmentManager();
+
+        List<Fragment> fragments = fragmentManager.getFragments();
+
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof DialogFragment) {
+                ((DialogFragment) fragment).dismiss();
+                ((DialogFragment) fragment).dismissAllowingStateLoss();
+
             }
         }
 
-        ingerdientTable.ingerdientDAO().delete(ingredient);
-        ingredientAdapter.closeDialog();
-
-
     }
+
+
 }

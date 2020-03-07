@@ -4,8 +4,12 @@
 
     <item
         android:id="@+id/design_menu_item_ingredient"
-        android:icon="@drawable/ic_list_black_24dp"
-        android:title="Ингридиенты"></item>
+        android:icon="@drawable/ic_dns_black_24dp"
+        android:title="Продукты"></item>
+    <item
+        android:id="@+id/design_menu_item_product"
+        android:icon="@drawable/ic_shopping_basket_black_24dp"
+        android:title="Товары"></item>
     <item
         android:id="@+id/design_menu_item_techcart"
         android:icon="@drawable/ic_tech_cart_24dp"

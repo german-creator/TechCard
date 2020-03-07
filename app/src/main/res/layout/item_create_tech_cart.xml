@@ -1,52 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="58dp"
-    android:weightSum="10">
+    android:orientation="horizontal"
+    android:weightSum="11.5">
 
-    <Spinner
-        android:id="@+id/item_create_TechCart_Spinner"
+    <TextView
+        android:id="@+id/item_create_TechCart_Name"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_weight="4"
-        ></Spinner>
-
-
-    <TextView
-        android:paddingLeft="10dp"
-        android:id="@+id/item_create_TechCart_TextView"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:textSize="16sp"
         android:gravity="center_vertical"
-        android:layout_weight="2"
-        android:background="@android:color/transparent"
-        android:text="..."/>
+        android:layout_weight="6"
+        android:paddingLeft="10dp"
+        android:text="Name"
+        android:textSize="18sp"></TextView>
 
     <EditText
         android:id="@+id/item_create_TechCart_EditText"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:textSize="17sp"
         android:layout_gravity="center"
+        android:layout_weight="4"
         android:gravity="center"
-        android:hint="Количество"></EditText>
+        android:textSize="17sp"
+        android:editable="false"/>
 
-    <ImageView
-        android:id="@+id/item_create_TechCart_Image"
-        android:src="@drawable/ic_clear_black_24dp"
+    <TextView
+        android:id="@+id/item_create_TechCart_TextView"
         android:layout_width="0dp"
-        android:layout_height="24dp"
-        android:layout_gravity="center_vertical|right"
-        android:layout_weight="1"
-        android:layout_marginRight="10dp"
-        />
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="10dp"
+        android:text="..."
+        android:textSize="16sp" />
 
-<!--    android:background="@drawable/edit_text_style"-->
-<!--    android:backgroundTintMode="src_over"-->
+
+
 
 </LinearLayout>
 

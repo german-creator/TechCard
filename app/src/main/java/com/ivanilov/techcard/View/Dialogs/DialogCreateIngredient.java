@@ -2,10 +2,12 @@ package com.ivanilov.techcard.View.Dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +22,7 @@ import com.ivanilov.techcard.R;
 import com.ivanilov.techcard.View.Fragments.IngredientsFragment;
 import com.ivanilov.techcard.View.MainActivity;
 
-public class DialogCraateIngredient extends DialogFragment {
+public class DialogCreateIngredient extends DialogFragment {
 
     EditText editTextName;
     Spinner dropdown;
@@ -54,7 +56,6 @@ public class DialogCraateIngredient extends DialogFragment {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 if (editTextName.getText().toString().equals(""))
                     Toast.makeText(getContext(), "Введите названия ингридиента", Toast.LENGTH_LONG).show();

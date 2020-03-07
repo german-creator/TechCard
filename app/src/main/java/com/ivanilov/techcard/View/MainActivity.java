@@ -13,11 +13,13 @@ import android.view.Gravity;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.ivanilov.techcard.Model.HistoryTable;
 import com.ivanilov.techcard.Model.IngerdientTable;
 import com.ivanilov.techcard.Model.TechCartTable;
 import com.ivanilov.techcard.R;
 import com.ivanilov.techcard.View.Fragments.HistoryFragment;
 import com.ivanilov.techcard.View.Fragments.IngredientsFragment;
+import com.ivanilov.techcard.View.Fragments.ProductFragment;
 import com.ivanilov.techcard.View.Fragments.TechCartFragment;
 
 public class MainActivity extends AppCompatActivity implements
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements
     Toolbar toolbar;
     IngerdientTable db;
     TechCartTable techCartTable;
+    HistoryTable historyTable;
 
 
     @Override
@@ -64,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements
         techCartTable = Room.databaseBuilder(getApplicationContext(),
                 TechCartTable.class, "techcart_database").fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
+        historyTable = Room.databaseBuilder(getApplicationContext(),
+                HistoryTable.class, "history_database").fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
     }
 
@@ -87,15 +92,26 @@ public class MainActivity extends AppCompatActivity implements
                 .beginTransaction();
 
 
-        if (menuItem.getTitle().equals("Ингридиенты")) {
+        if (menuItem.getTitle().equals("Продукты")) {
 
             IngredientsFragment ingredientsFragment = new IngredientsFragment();
 
             fragmentTransaction.replace(R.id.container, ingredientsFragment);
             fragmentTransaction.commit();
-            toolbar.setTitle("Ингридиенты");
+            toolbar.setTitle("Продукты");
 
         }
+
+        if (menuItem.getTitle().equals("Товары")) {
+
+            ProductFragment productFragment = new ProductFragment();
+
+            fragmentTransaction.replace(R.id.container, productFragment);
+            fragmentTransaction.commit();
+            toolbar.setTitle("Товары");
+
+        }
+
         if (menuItem.getTitle().equals("Технологические карты")) {
 
             TechCartFragment techCartFragment = new TechCartFragment();
@@ -103,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements
             fragmentTransaction.replace(R.id.container, techCartFragment);
             fragmentTransaction.commit();
             toolbar.setTitle("Технологические карты");
+
         }
 
         if (menuItem.getTitle().equals("История")) {
@@ -112,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements
             fragmentTransaction.replace(R.id.container, historyFragment);
             fragmentTransaction.commit();
             toolbar.setTitle("История");
-
 
         }
 
@@ -132,4 +148,9 @@ public class MainActivity extends AppCompatActivity implements
     public TechCartTable getTechCartTable() {
         return techCartTable;
     }
+
+    public HistoryTable getHistoryTable() {
+        return historyTable;
+    }
+
 }

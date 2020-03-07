@@ -8,15 +8,41 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
+        <receiver
+            android:name=".Presenter.SellBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="evotor.intent.action.receipt.sell.RECEIPT_CLOSED"></action>
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".Presenter.BuyBackBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="evotor.intent.action.receipt.payback.RECEIPT_CLOSED"></action>
+            </intent-filter>
+        </receiver>
 
         <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.EVOTOR" />
             </intent-filter>
+
+            <meta-data
+                android:name="ru.evotor.launcher.BACKGROUND_COLOR"
+                android:value="@color/colorPrimary" />
         </activity>
+
+        <meta-data
+            android:name="app_uuid"
+            android:value="87b015ce-223a-49d9-bd45-a2ba716c7afa" />
     </application>
 
 </manifest>

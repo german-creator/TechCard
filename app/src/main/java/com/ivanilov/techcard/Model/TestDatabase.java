@@ -4,6 +4,8 @@ import android.content.Context;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import ru.evotor.framework.inventory.InventoryApi;
@@ -25,7 +27,9 @@ public class TestDatabase {
             ArrayList<ProductItem> productItemEvotor1 = new ArrayList<>();
 
             for (int i = 0; i < productItemEvotor.size(); i++) {
-                if (productItemEvotor.get(i).getClass() != ProductItem.ProductGroup.class && productItemEvotor.get(i).getParentUuid() != null) {
+//                if (productItemEvotor.get(i).getClass() != ProductItem.ProductGroup.class && productItemEvotor.get(i).getParentUuid() != null) {
+
+                if (productItemEvotor.get(i).getClass() != ProductItem.ProductGroup.class) {
                     productItemEvotor1.add(productItemEvotor.get(i));
                 }
             }

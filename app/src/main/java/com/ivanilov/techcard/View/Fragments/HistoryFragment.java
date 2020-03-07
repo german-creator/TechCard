@@ -12,9 +12,11 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.ivanilov.techcard.Model.HistoryTable;
 import com.ivanilov.techcard.Presenter.Adapters.HistoryAdapter;
 import com.ivanilov.techcard.R;
 import com.ivanilov.techcard.View.Dialogs.DialogHistoryDescription;
+import com.ivanilov.techcard.View.MainActivity;
 
 import java.util.ArrayList;
 
@@ -47,19 +49,15 @@ public class HistoryFragment extends Fragment {
         list.add("bbbbb");
         list.add("ccccc");
 
-        HistoryAdapter ingredientAdapter = new HistoryAdapter(this, list);
+        HistoryTable historyTable = ((MainActivity) getActivity()).getHistoryTable();
+
+
+        HistoryAdapter historyAdapter = new HistoryAdapter(this, historyTable.historyDAO().getAllHistory());
 
         ListView listView = getView().findViewById(R.id.history_listview);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                DialogHistoryDescription dialogHistoryDescription = new DialogHistoryDescription();
-                dialogHistoryDescription.show(getFragmentManager(), "Тэг?");
-            }
-        });
 
-        listView.setAdapter(ingredientAdapter);
+        listView.setAdapter(historyAdapter);
     }
 
     public interface OnFragmentInteractionListener {

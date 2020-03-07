@@ -16,8 +16,12 @@ public interface IngerdientDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Ingredient... ingredients);
 
-    @Query("SELECT * FROM ingredient")
+    @Query("SELECT * FROM ingredient ORDER BY name")
     List<Ingredient> getAllIngredient();
+
+    @Query("SELECT * FROM ingredient WHERE name = :name ")
+    Ingredient getIngredientByName (String name);
+
 
     @Delete
     void delete(Ingredient ingredient);

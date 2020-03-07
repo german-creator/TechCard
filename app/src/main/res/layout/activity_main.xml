@@ -33,7 +33,8 @@
         app:headerLayout="@menu/headermenu"
         app:itemIconTint="@color/text_black"
         app:itemTextColor="@color/text_black"
-        app:menu="@menu/drawermenu">
+        app:menu="@menu/drawermenu"
+        >
 
     </com.google.android.material.navigation.NavigationView>
 

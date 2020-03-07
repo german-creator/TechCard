@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,6 +29,8 @@ import com.ivanilov.techcard.View.Fragments.TechCartFragment;
 import com.ivanilov.techcard.View.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import ru.evotor.framework.inventory.ProductItem;
@@ -35,6 +38,9 @@ import ru.evotor.framework.inventory.ProductItem;
 public class DialogCreateTechCart extends DialogFragment {
 
     TechCartTable techCartTable;
+    CreateTechCartAdapter createTechCartAdapter;
+    View footerView;
+    ListView listView;
 
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
@@ -45,7 +51,7 @@ public class DialogCreateTechCart extends DialogFragment {
 
         builder.setView(view);
         final Spinner dropdown = view.findViewById(R.id.Dialog_Create_TechCart_Spinner);
-        ListView listView = view.findViewById(R.id.Dialog_Create_TechCart_ListView);
+        listView = view.findViewById(R.id.Dialog_Create_TechCart_ListView);
         Button buttonSave = view.findViewById(R.id.Dialog_Create_TechCart_Button_Save);
         Button buttonDel = view.findViewById(R.id.Dialog_Create_TechCart_Button_Del);
         TextView textViewDel = view.findViewById(R.id.Dialog_Create_TechCart_Del);
@@ -53,12 +59,11 @@ public class DialogCreateTechCart extends DialogFragment {
         techCartTable = ((MainActivity) getActivity()).getTechCartTable();
 
         List<TechCart> techCartList = techCartTable.techCartDAO().getAllTechCart();
-        View footerView = ((LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footer_plus, null, false);
+        footerView = ((LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footer_plus, null, false);
         List<String> nameOfProduct = getAllProductName();
 
 
         String nameTechCart = "";
-        final CreateTechCartAdapter createTechCartAdapter;
         int position = 100000000;
 
         try {
@@ -68,7 +73,7 @@ public class DialogCreateTechCart extends DialogFragment {
         }
 
         if (nameTechCart.equals("")) {
-            createTechCartAdapter = new CreateTechCartAdapter(this, footerView, getIngredientList(), null, null);
+            createTechCartAdapter = new CreateTechCartAdapter(this, footerView, getIngredientList(), null, null, null);
 
         } else {
             int positionInTechCartList = 0;
@@ -77,18 +82,15 @@ public class DialogCreateTechCart extends DialogFragment {
             }
 
             position = getTechCartPositionProductItem(nameOfProduct, nameTechCart);
-
-            createTechCartAdapter = new CreateTechCartAdapter(this, footerView, getIngredientList(), techCartList.get(positionInTechCartList).getIngredients(), techCartList.get(positionInTechCartList).getPercentages());
+            createTechCartAdapter = new CreateTechCartAdapter(this, footerView, getIngredientList(), techCartList.get(positionInTechCartList).getIngredients(), techCartList.get(positionInTechCartList).getPercentages(), nameTechCart);
 
         }
-
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, nameOfProduct);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown.setAdapter(adapter);
 
         if (!nameTechCart.equals("")) dropdown.setSelection(position);
-
 
         listView.setAdapter(createTechCartAdapter);
         listView.addFooterView(footerView);
@@ -113,14 +115,18 @@ public class DialogCreateTechCart extends DialogFragment {
             @Override
             public void onClick(View v) {
 
-                if (createTechCartAdapter.cheсkItemValue() == false){
+                if (createTechCartAdapter.cheсkItemValue() == false) {
                     Toast.makeText(getActivity(), "Заполните все строки", Toast.LENGTH_SHORT).show();
 
-                }
-                else {
-                    saveTechCart(createTechCartAdapter, techCartTable, dropdown);
-                    updateFragment();
-                    dismiss();
+                } else {
+
+                    if (createTechCartAdapter.cheсkItemCopy() == false) {
+                        Toast.makeText(getActivity(), "Ингридиенты не должны повторяться", Toast.LENGTH_SHORT).show();
+                    } else {
+                        saveTechCart(createTechCartAdapter, techCartTable, dropdown);
+                        updateFragment();
+                        dismiss();
+                    }
                 }
 
             }
@@ -153,6 +159,7 @@ public class DialogCreateTechCart extends DialogFragment {
             result.add(i.getName());
         }
 
+        Collections.sort(result);
         return result;
     }
 
@@ -173,13 +180,21 @@ public class DialogCreateTechCart extends DialogFragment {
     public void saveTechCart(CreateTechCartAdapter adapter, TechCartTable techCartTable, Spinner dropdown) {
         TechCart techCart = adapter.createTechCartNoName();
         techCart.setName(dropdown.getSelectedItem().toString());
-        techCartTable.techCartDAO().insertAll(techCart);
+        techCartTable.techCartDAO().insert(techCart);
 
     }
 
     public void updateFragment() {
         TechCartFragment techCartFragment = ((TechCartFragment) getActivity().getSupportFragmentManager().getFragments().get(0));
         techCartFragment.updateAdapter();
+    }
+
+
+    public void updateAdapter (ArrayList<String> names, ArrayList<Double> percentage, String nameTechCart){
+
+
+        createTechCartAdapter = new CreateTechCartAdapter(this, footerView, getIngredientList(), names, percentage, nameTechCart);
+        listView.setAdapter(createTechCartAdapter);
 
     }
 }

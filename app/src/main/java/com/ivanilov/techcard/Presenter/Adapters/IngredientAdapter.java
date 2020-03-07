@@ -10,17 +10,18 @@ import android.widget.TextView;
 
 import com.ivanilov.techcard.Presenter.Entity.Ingredient;
 import com.ivanilov.techcard.R;
-import com.ivanilov.techcard.View.Dialogs.DialogComingWriteOff;
+import com.ivanilov.techcard.View.Dialogs.DialogIngredientComingWriteOff;
 import com.ivanilov.techcard.View.Fragments.IngredientsFragment;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 public class IngredientAdapter extends BaseAdapter {
 
     private IngredientsFragment view;
     private List<Ingredient> item;
-    DialogComingWriteOff dialogComingWriteOff;
+    DialogIngredientComingWriteOff dialogIngredientComingWriteOff;
 
 
     public IngredientAdapter (IngredientsFragment view, List<Ingredient> item){
@@ -62,9 +63,9 @@ public class IngredientAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("Name", textViewName.getText().toString());
-                dialogComingWriteOff = new DialogComingWriteOff();
-                dialogComingWriteOff.setArguments(bundle);
-                dialogComingWriteOff.show(view.getFragmentManager(), "Тэг?");
+                dialogIngredientComingWriteOff = new DialogIngredientComingWriteOff();
+                dialogIngredientComingWriteOff.setArguments(bundle);
+                dialogIngredientComingWriteOff.show(view.getFragmentManager(), "Тэг?");
             }
         });
 
@@ -75,16 +76,19 @@ public class IngredientAdapter extends BaseAdapter {
     }
 
     public void setUnitandAmount (TextView textViewAmount, TextView textViewUnit, Ingredient ingredient){
-        if (ingredient.getUnit() == 1) textViewUnit.setText("грамм");
-        if (ingredient.getUnit() == 2) textViewUnit.setText("мл.");
-        if (ingredient.getUnit() == 3) textViewUnit.setText("шт.");
+        if (ingredient.getUnit() == 1) textViewUnit.setText("гр");
+        if (ingredient.getUnit() == 2) textViewUnit.setText("мл");
+        if (ingredient.getUnit() == 3) textViewUnit.setText("шт");
 
-        DecimalFormat decimalFormat = new DecimalFormat("###.#");
+        DecimalFormat decimalFormat = new DecimalFormat("###,###.#");
 
-        textViewAmount.setText(decimalFormat.format(ingredient.getAmount()));
+        String amountText = decimalFormat.format(ingredient.getAmount());
+
+
+        textViewAmount.setText(amountText);
     }
 
     public void closeDialog (){
-        dialogComingWriteOff.dismiss();
+        dialogIngredientComingWriteOff.dismiss();
     }
 }

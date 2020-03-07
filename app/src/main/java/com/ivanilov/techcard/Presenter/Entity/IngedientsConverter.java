@@ -13,6 +13,8 @@ public class IngedientsConverter {
 
         String result = "";
 
+        if (ingredients == null | ingredients.size() == 0) return null;
+
         for (String ingredient:ingredients){
             result = result  + ingredient +(",");
         }
@@ -25,6 +27,8 @@ public class IngedientsConverter {
 
     @TypeConverter
     public ArrayList<String> toIngredients(String data) {
+
+        if (data == null) return null;
         List<String> d = Arrays.asList(data.split(","));
         ArrayList<String> result = new ArrayList<>(d);
         return result;
