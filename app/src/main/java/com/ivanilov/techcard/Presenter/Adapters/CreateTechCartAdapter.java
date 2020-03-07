@@ -223,7 +223,7 @@ public class CreateTechCartAdapter extends BaseAdapter {
         bundle.putDoubleArray("PercentageList", percentageToDialog);
         bundle.putStringArrayList("AllName", nameToDialog);
         bundle.putInt("NumberPosition", 0);
-        bundle.putInt("Position", nameToDialog.size()+1);
+        bundle.putInt("Position", positionList.size()+1);
         bundle.putDouble("Percentage", 0.0);
         bundle.putString("Unit", itemUnit.get(0));
         bundle.putString("NameTechCart", nameTechCart);
